@@ -104,7 +104,7 @@
 
             <!-- Product Visual (Using the Cover Image) -->
             <div class="flex-1 w-full max-w-md mx-auto lg:max-w-lg perspective-1000 z-10">
-                <img src="pdf_cover.png" alt="Advanced Network Scanning Cover" class="rounded-xl shadow-2xl shadow-emerald-500/30 border border-zinc-800 -rotate-2 hover:rotate-0 transition-transform duration-500 w-full relative z-10">
+                <img src="pdf cover.png" alt="Advanced Network Scanning Cover" class="rounded-xl shadow-2xl shadow-emerald-500/30 border border-zinc-800 -rotate-2 hover:rotate-0 transition-transform duration-500 w-full relative z-10">
                 <!-- Shadow beneath book -->
                 <div class="w-3/4 h-8 bg-black/60 blur-xl mx-auto mt-4 rounded-[100%]"></div>
             </div>
@@ -115,7 +115,7 @@
     <section id="details" class="py-24 px-6 bg-zinc-950 border-t border-zinc-800 relative z-20">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4 uppercase tracking-tight">Stop Guessing. Start Hacking.</h2>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4 uppercase tracking-tight">Stop Guessing. Start Mapping.</h2>
                 <p class="text-zinc-400 max-w-2xl mx-auto text-lg">We cut out the academic filler. This guide teaches the exact methodologies used in professional red team engagements.</p>
             </div>
             
@@ -226,6 +226,28 @@
                             </p>
                         </div>
 
+                        <!-- USDC Wallet Block -->
+                        <div class="text-center text-zinc-600 font-black my-4 uppercase text-xs tracking-widest ml-9">OR</div>
+                        
+                        <div class="bg-zinc-900 border border-blue-500/30 rounded-lg p-5 shadow-inner ml-9">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="text-xs text-zinc-400 uppercase font-bold tracking-wider flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-[#2775CA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    USD Coin (USDC)
+                                </label>
+                                <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-black uppercase tracking-wider">BEP20 Network Only</span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center gap-2">
+                                <input type="text" readonly value="0x5f9269f593079822cb062ffc52ed573d4d597285" class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm text-blue-400 font-mono outline-none" id="usdc-wallet">
+                                <button onclick="copyWallet('usdc-wallet', 'BEP20 Wallet Address')" class="w-full sm:w-auto bg-white hover:bg-zinc-200 text-black px-6 py-3 rounded text-sm font-black transition uppercase tracking-wide shrink-0">COPY</button>
+                            </div>
+
+                            <p class="text-xs text-red-400 mt-3 font-medium bg-red-500/10 p-2 rounded border border-red-500/20">
+                                <strong>CRITICAL WARNING:</strong> Send exclusively via the <strong>BSC (BEP20)</strong> network. Sending via ERC20 or TRC20 will result in lost funds.
+                            </p>
+                        </div>
+
                         <!-- Binance ID Block -->
                         <div class="text-center text-zinc-600 font-black my-4 uppercase text-xs tracking-widest ml-9">OR</div>
                         
@@ -264,7 +286,7 @@
                                 Email a screenshot of your payment or the transaction hash to <strong class="text-white font-mono">hackerjoe321@gmail.com</strong>. We verify the blockchain and send your secure Google Drive link within 10 minutes.
                             </p>
                             
-                            <a href="mailto:HackerJoe321@gmail.com?subject=Payment Verified: USDT for Network Scanning PDF" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-black text-center font-black py-4 px-4 rounded transition uppercase tracking-wide shadow-lg">
+                            <a href="mailto:hackerjoe321@gmail.com?subject=Payment Verified: USDT for Network Scanning PDF" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-black text-center font-black py-4 px-4 rounded transition uppercase tracking-wide shadow-lg">
                                 Email Payment Screenshot Here
                             </a>
                         </div>
@@ -282,7 +304,7 @@
             <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-sm">Contact Hacker Joe</h4>
             <p class="text-zinc-400 text-sm mb-6">
                 Questions about the material? Payment issues? <br>
-                Email directly at: <a href="mailto:HackerJoe321@gmail.com" class="text-emerald-400 hover:text-emerald-300 font-mono transition">hackerjoe321@gmail.com</a>
+                Email directly at: <a href="mailto:hackerjoe321@gmail.com" class="text-emerald-400 hover:text-emerald-300 font-mono transition">HackerJoe321@gmail.com</a>
             </p>
             <p class="text-zinc-600 text-xs">
                 © 2026 Hacker Joe. Thank you for supporting independent, uncensored cybersecurity education.
