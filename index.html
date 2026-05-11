@@ -116,10 +116,14 @@
                     <div class="flex items-center gap-2"><svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 100% Refund Guarantee</div>
                 </div>
 
-                <!-- NEW: GitHub Native View Counter Badge -->
+                <!-- NEW: GitHub Native View Counter Badge (Cache Bypass) -->
                 <div class="mt-6 flex justify-center lg:justify-start opacity-80 hover:opacity-100 transition-opacity">
-                    <!-- Updated to use komarev, which bypasses most adblockers and fits the hacker style -->
-                    <img src="https://komarev.com/ghpvc/?username=hackerjoe-scanning&label=VIEW+COUNT&color=10b981&style=flat-square" alt="Page Views">
+                    <!-- We use Javascript to append a timestamp so browsers never cache the image -->
+                    <img id="view-badge" alt="Page Views" class="h-6">
+                    <script>
+                        // Force real-time fetch by avoiding the browser cache
+                        document.getElementById('view-badge').src = "https://komarev.com/ghpvc/?username=hackerjoe-scanning-live&label=VIEW+COUNT&color=10b981&style=flat-square&t=" + new Date().getTime();
+                    </script>
                 </div>
 
             </div>
