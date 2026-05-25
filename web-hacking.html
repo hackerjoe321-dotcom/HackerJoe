@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App Hacking No-BS 2026 Edition | Hacker Joe</title>
+    
+    <!-- Website Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    
+    <meta name="description" content="A comprehensive breakdown of modern web vulnerabilities, authentication bypasses, and manual exploitation techniques. Uncensored distribution.">
+    <meta property="og:title" content="Web App Hacking No-BS 2026 | Hacker Joe">
+    <meta property="og:description" content="Stop running automated scanners. Start hunting logic flaws. Master advanced web app exploitation workflows. 100% independent distribution.">
+    <meta property="og:image" content="web_cover.png">
+    <meta name="theme-color" content="#10b981">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zinc: {
+                            850: '#18181b',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #09090b;
+            color: #e4e4e7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .glow-effect {
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        
+        /* Subtle grid background for the hero */
+        .bg-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <!-- LAUNCH LOCK SCREEN (Blocks site until Wednesday) -->
+    <div id="launch-overlay" class="fixed inset-0 z-[100] bg-zinc-950 flex flex-col items-center justify-center transition-opacity duration-1000 backdrop-blur-3xl">
+        <div class="absolute inset-0 bg-grid opacity-50" style="mask-image: radial-gradient(circle at center, black, transparent 80%); -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-900/20 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+        
+        <svg class="w-16 h-16 text-emerald-500 mb-6 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        <h1 class="text-4xl sm:text-5xl font-black text-white uppercase tracking-widest mb-4 drop-shadow-lg text-center">System Locked</h1>
+        <p class="text-zinc-400 font-mono text-center max-w-md px-6 mb-10">>_ Web App Hacking No-BS drops on Wednesday. Stand by.</p>
+        
+        <div class="flex gap-4 sm:gap-6 text-center font-mono mb-12">
+            <div class="bg-zinc-900/80 border border-emerald-500/30 p-4 rounded-xl backdrop-blur-md w-20 sm:w-24 shadow-2xl">
+                <span id="countdown-days" class="text-2xl sm:text-3xl font-black text-emerald-400 block mb-1">00</span>
+                <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Days</span>
+            </div>
+            <div class="bg-zinc-900/80 border border-emerald-500/30 p-4 rounded-xl backdrop-blur-md w-20 sm:w-24 shadow-2xl">
+                <span id="countdown-hours" class="text-2xl sm:text-3xl font-black text-emerald-400 block mb-1">00</span>
+                <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Hours</span>
+            </div>
+            <div class="bg-zinc-900/80 border border-emerald-500/30 p-4 rounded-xl backdrop-blur-md w-20 sm:w-24 shadow-2xl">
+                <span id="countdown-minutes" class="text-2xl sm:text-3xl font-black text-emerald-400 block mb-1">00</span>
+                <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Mins</span>
+            </div>
+            <div class="bg-zinc-900/80 border border-emerald-500/30 p-4 rounded-xl backdrop-blur-md w-20 sm:w-24 shadow-2xl">
+                <span id="countdown-seconds" class="text-2xl sm:text-3xl font-black text-emerald-400 block mb-1">00</span>
+                <span class="text-[10px] text-zinc-500 uppercase tracking-widest">Secs</span>
+            </div>
+        </div>
+
+        <!-- View Counter on the Lock Screen -->
+        <div class="flex flex-col items-center opacity-80 hover:opacity-100 transition-opacity">
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest mb-2 font-bold">Hackers Waiting:</span>
+            <img src="https://api.visitorbadge.io/api/visitors?path=hackerjoe321.webhacking.v3&label=VIEWS&countColor=%2310b981" alt="Page Views" class="h-6 rounded">
+        </div>
+    </div>
+    <!-- END LAUNCH LOCK SCREEN -->
+
+    <!-- Navigation -->
+    <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <a href="index.html" class="font-black text-xl tracking-tight text-white flex items-center gap-2 uppercase hover:text-emerald-400 transition">
+                <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Hacker Joe
+            </a>
+            <div class="flex items-center gap-6">
+                <!-- Video Tab -->
+                <a href="#transmission" class="hidden sm:block text-sm font-bold text-zinc-400 hover:text-white transition uppercase tracking-wide">Watch Proof</a>
+                
+                <div class="hidden sm:flex items-center gap-2 text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Verified Secure
+                </div>
+                <a href="#checkout" class="text-sm font-bold bg-emerald-500 text-black px-5 py-2.5 rounded hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.3)] uppercase tracking-wide">Buy Now - $29.99</a>
+            </div>
+        </div>
+    </nav>
+
+    
+    <header class="py-12 lg:py-0 lg:min-h-[calc(100vh-76px)] flex items-center px-6 relative overflow-hidden bg-grid">
+        <!-- Ambient background glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+        
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12 w-full z-10">
+            
+            <!-- Text Content -->
+            <div class="flex-1 text-center lg:text-left w-full">
+                
+                <!-- Premium Scarcity Banner -->
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] sm:text-xs font-bold text-emerald-400 mb-4 uppercase tracking-wider shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                    <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2v-2zm0-6h2v4h-2v-4z"/></svg>
+                    Early Adopter Deal: $29.99 (Usually $34.99)
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4 leading-tight uppercase">
+                    Web App Hacking <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">No-BS Edition</span>
+                </h1>
+                
+                <p class="text-base sm:text-lg text-zinc-400 mb-6 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    A comprehensive breakdown of modern web vulnerabilities, authentication bypasses, and manual exploitation techniques. Stop relying on automated scanners and learn how to hunt logic flaws.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="#checkout" class="w-full sm:w-auto px-6 py-3 bg-white text-black font-black rounded hover:bg-zinc-200 transition text-base uppercase tracking-wide flex items-center justify-center gap-2 group shadow-xl hover:-translate-y-1">
+                        Get PDF For - $29.99
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="#details" class="w-full sm:w-auto px-6 py-3 bg-zinc-900 text-white font-bold rounded hover:bg-zinc-800 transition border border-zinc-800 text-base uppercase tracking-wide hover:-translate-y-1">
+                        View Contents
+                    </a>
+                </div>
+
+                <!-- Trust & Social Proof -->
+                <div class="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                    <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-500 uppercase tracking-widest">
+                        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        Crypto Secured
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-500 uppercase tracking-widest">
+                        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Instant Delivery
+                    </div>
+                    
+                    <div class="flex items-center opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="https://api.visitorbadge.io/api/visitors?path=hackerjoe321.webhacking.v3&label=VIEWS&countColor=%2310b981" alt="Page Views" class="h-5 rounded">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex-1 w-full max-w-[280px] sm:max-w-sm mx-auto lg:max-w-md perspective-1000 z-10 mt-8 lg:mt-0">
+                <img src="web_cover.png" alt="Web App Hacking Cover" class="rounded-xl shadow-2xl shadow-emerald-500/30 border border-zinc-800 -rotate-2 hover:rotate-0 transition-transform duration-500 w-full relative z-10">
+                <!-- Shadow beneath book -->
+                <div class="w-3/4 h-6 bg-black/60 blur-xl mx-auto mt-4 rounded-[100%]"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Video Transmission Section MOVED HERE -->
+    <section id="transmission" class="py-20 px-6 bg-zinc-950 border-t border-zinc-800 relative z-20">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400 mb-4 uppercase tracking-wider animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/></svg>
+                    Incoming Transmission
+                </div>
+                <h2 class="text-3xl font-black text-white uppercase tracking-tight">Watch Before You Buy</h2>
+            </div>
+
+            <!-- Terminal Video Player -->
+            <div class="bg-zinc-900 rounded-xl border border-zinc-700 shadow-2xl shadow-emerald-500/20 overflow-hidden relative">
+                <div class="bg-zinc-950 px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_5px_rgba(239,68,68,0.5)]"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 shadow-[0_0_5px_rgba(234,179,8,0.5)]"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]"></div>
+                    </div>
+                    <div class="text-xs font-mono text-emerald-500 uppercase tracking-widest">web_exploit_demo.mp4</div>
+                    <div class="w-12"></div>
+                </div>
+                
+                <div class="relative bg-black aspect-video flex items-center justify-center">
+                    <video controls preload="metadata" poster="web_cover.png" class="w-full h-full object-cover outline-none">
+                        <!-- Note: Upload a new video file named web_promo.mp4 to your github repo -->
+                        <source src="web_promo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-center items-center gap-2">
+                <span class="text-emerald-500 font-black animate-pulse">>_</span>
+                <p class="text-sm text-zinc-500 font-mono">Proof of concept verified.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details/Features Section -->
+    <section id="details" class="py-24 px-6 bg-zinc-950 border-t border-zinc-800 relative z-20">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4 uppercase tracking-tight">Manual Exploitation Is King.</h2>
+                <p class="text-zinc-400 max-w-2xl mx-auto text-lg">Automated scanners miss the highest-impact bugs. This guide teaches the manual methodologies used by top-tier bug hunters and red teamers.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Detail 1 -->
+                <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-emerald-500/50 transition duration-300 shadow-lg">
+                    <div class="w-12 h-12 bg-zinc-950 rounded flex items-center justify-center mb-6 border border-zinc-800 shadow-inner">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 uppercase tracking-wide">Auth Bypasses</h3>
+                    <p class="text-zinc-400 leading-relaxed">Break session management, exploit weak JWT implementations, forge tokens, and understand OAuth misconfigurations.</p>
+                </div>
+
+                <!-- Detail 2 -->
+                <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-emerald-500/50 transition duration-300 shadow-lg">
+                    <div class="w-12 h-12 bg-zinc-950 rounded flex items-center justify-center mb-6 border border-zinc-800 shadow-inner">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 uppercase tracking-wide">Advanced Injections</h3>
+                    <p class="text-zinc-400 leading-relaxed">Move beyond basic SQLi. Master blind injections, NoSQL database exploitation, and stealthy command injection workflows.</p>
+                </div>
+
+                <!-- Detail 3 -->
+                <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-emerald-500/50 transition duration-300 shadow-lg">
+                    <div class="w-12 h-12 bg-zinc-950 rounded flex items-center justify-center mb-6 border border-zinc-800 shadow-inner">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 uppercase tracking-wide">Business Logic Flaws</h3>
+                    <p class="text-zinc-400 leading-relaxed">Find the critical bugs scanners can never see. Learn how to map application state and exploit underlying business rules.</p>
+                </div>
+
+                <!-- Detail 4 -->
+                <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-emerald-500/50 transition duration-300 shadow-lg">
+                    <div class="w-12 h-12 bg-zinc-950 rounded flex items-center justify-center mb-6 border border-zinc-800 shadow-inner">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 uppercase tracking-wide">Exploit Chaining</h3>
+                    <p class="text-zinc-400 leading-relaxed">Turn low-level severity findings into critical takeovers by learning how to manually chain multiple vulnerabilities together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section id="checkout" class="py-24 px-6 relative bg-zinc-900 border-t border-zinc-800 flex-grow">
+        <div class="max-w-3xl mx-auto">
+            
+            <div class="mb-10 bg-zinc-950 border-l-4 border-emerald-500 p-6 rounded-r-lg shadow-xl">
+                <h3 class="text-white font-bold text-lg mb-2 uppercase flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Fully Automated Card Payments
+                </h3>
+                <p class="text-zinc-400 text-sm leading-relaxed mb-3">
+                    By officially partnering with Nas.com, I offer you the ability to pay with <strong>Bank or Card</strong> with <strong>100% automated, instant delivery</strong>. No waiting, no emails required.
+                </p>
+                <p class="text-zinc-400 text-sm leading-relaxed">
+                    If you prefer privacy, my standard <strong>Crypto options</strong> are still available below (Crypto requires manual email verification). Full refund if you don't like the guide, no BS.
+                </p>
+            </div>
+
+            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-zinc-800 pb-6 mb-8">
+                    <div>
+                        <h2 class="text-3xl font-black text-white uppercase tracking-tight">Secure Checkout</h2>
+                        <p class="text-sm text-zinc-500 mt-1 font-mono">system ready.</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 text-right">
+                        <p class="text-sm text-zinc-500 uppercase font-bold tracking-widest mb-1">Base Price</p>
+                        <div class="flex items-center gap-3 justify-end">
+                            <span class="text-xl text-zinc-600 line-through font-bold decoration-2">$34.99</span>
+                            <p class="text-4xl text-emerald-400 font-black">$29.99 USD</p>
+                        </div>
+                        <p class="text-xs text-emerald-500 font-bold mt-2 uppercase tracking-wide animate-pulse">Claim before the price increases!</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-8 relative z-10">
+                    
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-6 h-6 rounded bg-emerald-500/20 flex items-center justify-center text-emerald-500 font-bold text-sm">1</div>
+                            <p class="text-white font-bold uppercase tracking-wide">Bank or Card Payment ($30.99)</p>
+                        </div>
+                        
+                        <div class="ml-9">
+                            
+                            <a href="https://nas.com/checkout-global?communityId=63845d00f37d8777e6a83ef3&communityCode=HACKERJOE&requestor=signupRequestor&linkClicked=https%3A%2F%2Fnas.com%2Fportal%2Fproducts&sourceInfoType=folder&sourceInfoOrigin=6a06226abdccbba21bc3d9c0" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 w-full bg-white hover:bg-zinc-200 text-black text-center font-black py-5 px-4 rounded-lg transition uppercase tracking-wide shadow-lg shadow-white/10 hover:-translate-y-1">
+                                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                                Pay $30.99 via Nas.com
+                            </a>
+                            <p class="text-xs text-emerald-500 mt-3 font-mono font-bold">>_ Automated System: You will get instant access to the PDF right after payment.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 my-8 ml-9">
+                        <div class="h-[1px] flex-grow bg-zinc-800"></div>
+                        <span class="text-[10px] font-black text-zinc-600 uppercase tracking-widest">OR MANUAL CRYPTO ($29.99)</span>
+                        <div class="h-[1px] flex-grow bg-zinc-800"></div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-6 h-6 rounded bg-zinc-800 flex items-center justify-center text-zinc-400 font-bold text-sm">2</div>
+                            <p class="text-zinc-300 font-bold uppercase tracking-wide">Manual Crypto Transfer ($29.99)</p>
+                        </div>
+                        
+                        <div class="bg-zinc-900 border border-emerald-500/30 rounded-lg p-5 shadow-inner ml-9 hover:border-emerald-500/50 transition">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="text-xs text-zinc-400 uppercase font-bold tracking-wider flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-[#26A17B]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.5 0-4.5-2-4.5-4.5h2c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5-1.1-2.5-2.5-2.5-2.5-1.1-2.5-2.5C9.5 5.5 11.5 3.5 14 3.5s4.5 2 4.5 4.5h-2c0-1.4-1.1-2.5-2.5-2.5S11.5 6.6 11.5 8s1.1 2.5 2.5 2.5 2.5 1.1 2.5 2.5c0 2.5-2 4.5-4.5 4.5z"/></svg>
+                                    Tether (USDT)
+                                </label>
+                                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-black uppercase tracking-wider">TRC20 Network Only</span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center gap-2">
+                                <input type="text" readonly value="TDbqN2rRvS3k8NzouoVP5GAadXh6Vwn2KQ" class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm text-emerald-400 font-mono outline-none" id="usdt-wallet">
+                                <button onclick="copyWallet('usdt-wallet', 'TRC20 Wallet Address')" class="w-full sm:w-auto bg-white hover:bg-zinc-200 text-black px-6 py-3 rounded text-sm font-black transition uppercase tracking-wide shrink-0">COPY</button>
+                            </div>
+
+                            <p class="text-xs text-red-400 mt-3 font-medium bg-red-500/10 p-2 rounded border border-red-500/20">
+                                <strong>CRITICAL WARNING:</strong> Send exclusively via the <strong>TRON (TRC20)</strong> network. Sending via ERC20 will result in lost funds.
+                            </p>
+                        </div>
+
+                        <div class="text-center text-zinc-600 font-black my-4 uppercase text-xs tracking-widest ml-9">OR</div>
+                        
+                        <div class="bg-zinc-900 border border-blue-500/30 rounded-lg p-5 shadow-inner ml-9 hover:border-blue-500/50 transition">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="text-xs text-zinc-400 uppercase font-bold tracking-wider flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-[#2775CA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    USD Coin (USDC)
+                                </label>
+                                <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-black uppercase tracking-wider">BEP20 Network Only</span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center gap-2">
+                                <input type="text" readonly value="0x5f9269f593079822cb062ffc52ed573d4d597285" class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm text-blue-400 font-mono outline-none" id="usdc-wallet">
+                                <button onclick="copyWallet('usdc-wallet', 'BEP20 Wallet Address')" class="w-full sm:w-auto bg-white hover:bg-zinc-200 text-black px-6 py-3 rounded text-sm font-black transition uppercase tracking-wide shrink-0">COPY</button>
+                            </div>
+
+                            <p class="text-xs text-red-400 mt-3 font-medium bg-red-500/10 p-2 rounded border border-red-500/20">
+                                <strong>CRITICAL WARNING:</strong> Send exclusively via the <strong>BSC (BEP20)</strong> network. Sending via ERC20 or TRC20 will result in lost funds.
+                            </p>
+                        </div>
+
+                        <div class="text-center text-zinc-600 font-black my-4 uppercase text-xs tracking-widest ml-9">OR</div>
+                        
+                        <div class="bg-zinc-900 border border-yellow-500/30 rounded-lg p-5 shadow-inner ml-9 hover:border-yellow-500/50 transition">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="text-xs text-zinc-400 uppercase font-bold tracking-wider flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-[#F3BA2F]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.999 0l6.096 6.096-2.585 2.586L12 5.172l-3.511 3.51-2.586-2.586L11.999 0zm0 24l-6.096-6.096 2.586-2.586L12 18.828l3.511-3.51 2.585 2.586L11.999 24zm-6.685-6.685L0 11.999l5.314-5.315 2.586 2.586-2.729 2.729 2.729 2.728-2.586 2.587zm13.37 0l-2.585-2.587 2.728-2.728-2.728-2.729 2.585-2.586L24 11.999l-5.316 5.316zM12 15.426l-3.426-3.427L12 8.573l3.426 3.426L12 15.426z"/></svg>
+                                    Binance Pay
+                                </label>
+                                <span class="text-[10px] bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded font-black uppercase tracking-wider">Binance ID</span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center gap-2">
+                                <input type="text" readonly value="812783796" class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm text-yellow-400 font-mono outline-none" id="binance-id">
+                                <button onclick="copyWallet('binance-id', 'Binance ID')" class="w-full sm:w-auto bg-white hover:bg-zinc-200 text-black px-6 py-3 rounded text-sm font-black transition uppercase tracking-wide shrink-0">COPY</button>
+                            </div>
+                        </div>
+
+                        <div class="ml-9 mt-4 bg-zinc-950 border border-zinc-800 p-3 rounded text-xs text-zinc-400 flex items-start gap-2">
+                            <svg class="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <p>Want to pay with <strong>BTC, ETH, XMR</strong>, or another crypto? <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hackerjoe321@gmail.com&su=Alternative+Crypto+Payment+Inquiry" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 font-bold underline transition">Email me now</a> and i will send u the wallet address.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-6 h-6 rounded bg-zinc-800 flex items-center justify-center text-zinc-400 font-bold text-sm">3</div>
+                            <p class="text-zinc-300 font-bold uppercase tracking-wide">Crypto Buyers: Don't Forget To Email Me</p>
+                        </div>
+                        
+                        <div class="ml-9">
+                            <p class="text-sm text-zinc-400 mb-4 bg-zinc-900 p-4 rounded border border-zinc-800 font-mono text-xs">
+                                >_ REQUIRED (CRYPTO ONLY): If you paid manually with Crypto, you MUST email a screenshot of your transaction hash to <strong class="text-white">hackerjoe321@gmail.com</strong>. I verify it and send your secure G-Drive link in 10 mins. (Card buyers can ignore this).
+                            </p>
+                            
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hackerjoe321@gmail.com&su=Payment+Verified:+Crypto+for+Web+Hacking+PDF" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full bg-emerald-500 hover:bg-emerald-400 text-black text-center font-black py-4 px-4 rounded transition uppercase tracking-wide shadow-lg shadow-emerald-500/20 hover:-translate-y-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+                                Open Gmail & Send Screenshot
+                            </a>
+                            <div class="text-center mt-3">
+                                <p class="text-xs text-zinc-500">Not using Gmail? Send to <span class="font-mono text-zinc-400">hackerjoe321@gmail.com</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-zinc-800 text-center bg-zinc-950">
+        <div class="max-w-2xl mx-auto px-6">
+            <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-sm">Contact Hacker Joe</h4>
+            <p class="text-zinc-400 text-sm mb-6">
+                Questions about the material? Payment issues? <br>
+                Direct Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hackerjoe321@gmail.com" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 font-mono transition">hackerjoe321@gmail.com</a>
+            </p>
+            <p class="text-zinc-600 text-xs">
+                © 2026 Hacker Joe. Thank you for supporting independent, uncensored cybersecurity education.
+            </p>
+        </div>
+    </footer>
+
+    <div id="toast" class="fixed bottom-6 right-6 bg-zinc-800 border border-zinc-700 text-white px-6 py-4 rounded-lg shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 z-[100]">
+        <div id="toast-icon" class="text-emerald-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <h4 id="toast-title" class="font-bold text-sm">Copied!</h4>
+            <p id="toast-message" class="text-xs text-zinc-400">Address copied to clipboard.</p>
+        </div>
+    </div>
+
+    <!-- Countdown Logic -->
+    <script>
+        
+        const launchDate = new Date("May 27, 2026 12:00:00 UTC").getTime();
+        
+        // Quick check on load to prevent flash if already launched
+        if (new Date().getTime() >= launchDate) {
+            const overlay = document.getElementById("launch-overlay");
+            if(overlay) overlay.style.display = "none";
+        } else {
+            // Start the ticking countdown
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = launchDate - now;
+
+                if (distance <= 0) {
+                    // Time reached! Fade out the lock screen
+                    clearInterval(timer);
+                    const overlay = document.getElementById("launch-overlay");
+                    if(overlay) {
+                        overlay.style.opacity = "0";
+                        setTimeout(() => overlay.style.display = "none", 1000);
+                    }
+                } else {
+                    // Update the numbers
+                    document.getElementById("countdown-days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                    document.getElementById("countdown-hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                    document.getElementById("countdown-minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                    document.getElementById("countdown-seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+                }
+            }, 1000);
+        }
+
+        // Wallet Copy Function
+        function copyWallet(inputId, typeName = 'Address') {
+            const copyText = document.getElementById(inputId);
+            
+            // Select and copy
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+            
+            // Update toast message dynamically
+            document.getElementById('toast-message').innerText = typeName + " copied to clipboard.";
+            
+            // Show toast notification
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
